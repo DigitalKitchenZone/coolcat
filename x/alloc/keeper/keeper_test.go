@@ -17,7 +17,7 @@ import (
 type KeeperTestSuite struct {
 	suite.Suite
 	ctx sdk.Context
-	app *app.WasmApp
+	app *app.CoolCatApp
 }
 
 func (suite *KeeperTestSuite) SetupTest() {

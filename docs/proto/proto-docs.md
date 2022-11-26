@@ -1,67 +1,47 @@
 <!-- This file is auto-generated. Please do not modify it yourself. -->
 # Protobuf Documentation
+
 <a name="top"></a>
 
 ## Table of Contents
 
-- [coolcat/alloc/v1beta1/params.proto](#coolcat/alloc/v1beta1/params.proto)
-    - [DistributionProportions](#coolcat.alloc.v1beta1.DistributionProportions)
-    - [Params](#coolcat.alloc.v1beta1.Params)
-  
-- [coolcat/alloc/v1beta1/genesis.proto](#coolcat/alloc/v1beta1/genesis.proto)
-    - [GenesisState](#coolcat.alloc.v1beta1.GenesisState)
-  
-- [coolcat/alloc/v1beta1/query.proto](#coolcat/alloc/v1beta1/query.proto)
-    - [QueryParamsRequest](#coolcat.alloc.v1beta1.QueryParamsRequest)
-    - [QueryParamsResponse](#coolcat.alloc.v1beta1.QueryParamsResponse)
-  
-    - [Query](#coolcat.alloc.v1beta1.Query)
-  
-- [coolcat/alloc/v1beta1/tx.proto](#coolcat/alloc/v1beta1/tx.proto)
-    - [MsgCreateVestingAccount](#coolcat.alloc.v1beta1.MsgCreateVestingAccount)
-    - [MsgCreateVestingAccountResponse](#coolcat.alloc.v1beta1.MsgCreateVestingAccountResponse)
-  
-    - [Msg](#coolcat.alloc.v1beta1.Msg)
-  
-- [Scalar Value Types](#scalar-value-types)
-
-
+- [Protobuf Documentation](#protobuf-documentation)
+  - [Table of Contents](#table-of-contents)
+  - [coolcat/alloc/v1beta1/params.proto](#coolcatallocv1beta1paramsproto)
+    - [DistributionProportions](#distributionproportions)
+    - [Params](#params)
+  - [coolcat/alloc/v1beta1/genesis.proto](#coolcatallocv1beta1genesisproto)
+    - [GenesisState](#genesisstate)
+  - [coolcat/alloc/v1beta1/query.proto](#coolcatallocv1beta1queryproto)
+    - [QueryParamsRequest](#queryparamsrequest)
+    - [QueryParamsResponse](#queryparamsresponse)
+    - [Query](#query)
+  - [coolcat/alloc/v1beta1/tx.proto](#coolcatallocv1beta1txproto)
+    - [MsgCreateVestingAccount](#msgcreatevestingaccount)
+    - [MsgCreateVestingAccountResponse](#msgcreatevestingaccountresponse)
+    - [Msg](#msg)
+  - [Scalar Value Types](#scalar-value-types)
 
 <a name="coolcat/alloc/v1beta1/params.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## coolcat/alloc/v1beta1/params.proto
 
-
-
 <a name="coolcat.alloc.v1beta1.DistributionProportions"></a>
 
 ### DistributionProportions
-
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `community_pool` | [string](#string) |  |  |
 
-
-
-
-
-
 <a name="coolcat.alloc.v1beta1.Params"></a>
 
 ### Params
 
-
-
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `distribution_proportions` | [DistributionProportions](#coolcat.alloc.v1beta1.DistributionProportions) |  | distribution_proportions defines the proportion of the minted denom |
-
-
-
-
 
  <!-- end messages -->
 
@@ -70,29 +50,21 @@
  <!-- end HasExtensions -->
 
  <!-- end services -->
-
-
 
 <a name="coolcat/alloc/v1beta1/genesis.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## coolcat/alloc/v1beta1/genesis.proto
 
-
-
 <a name="coolcat.alloc.v1beta1.GenesisState"></a>
 
 ### GenesisState
-GenesisState defines the alloc module's genesis state.
 
+GenesisState defines the alloc module's genesis state.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `params` | [Params](#coolcat.alloc.v1beta1.Params) |  |  |
-
-
-
-
 
  <!-- end messages -->
 
@@ -102,38 +74,26 @@ GenesisState defines the alloc module's genesis state.
 
  <!-- end services -->
 
-
-
 <a name="coolcat/alloc/v1beta1/query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## coolcat/alloc/v1beta1/query.proto
 
-
-
 <a name="coolcat.alloc.v1beta1.QueryParamsRequest"></a>
 
 ### QueryParamsRequest
+
 QueryParamsRequest is the request type for the Query/Params RPC method.
-
-
-
-
-
 
 <a name="coolcat.alloc.v1beta1.QueryParamsResponse"></a>
 
 ### QueryParamsResponse
-QueryParamsResponse is the response type for the Query/Params RPC method.
 
+QueryParamsResponse is the response type for the Query/Params RPC method.
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `params` | [Params](#coolcat.alloc.v1beta1.Params) |  | params defines the parameters of the module. |
-
-
-
-
 
  <!-- end messages -->
 
@@ -141,10 +101,10 @@ QueryParamsResponse is the response type for the Query/Params RPC method.
 
  <!-- end HasExtensions -->
 
-
 <a name="coolcat.alloc.v1beta1.Query"></a>
 
 ### Query
+
 Query defines the gRPC querier service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
@@ -153,21 +113,17 @@ Query defines the gRPC querier service.
 
  <!-- end services -->
 
-
-
 <a name="coolcat/alloc/v1beta1/tx.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## coolcat/alloc/v1beta1/tx.proto
 
-
-
 <a name="coolcat.alloc.v1beta1.MsgCreateVestingAccount"></a>
 
 ### MsgCreateVestingAccount
+
 MsgCreateVestingAccount defines a message that enables creating a vesting
 account.
-
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
@@ -178,20 +134,12 @@ account.
 | `end_time` | [int64](#int64) |  |  |
 | `delayed` | [bool](#bool) |  |  |
 
-
-
-
-
-
 <a name="coolcat.alloc.v1beta1.MsgCreateVestingAccountResponse"></a>
 
 ### MsgCreateVestingAccountResponse
+
 MsgCreateVestingAccountResponse defines the Msg/CreateVestingAccount response
 type.
-
-
-
-
 
  <!-- end messages -->
 
@@ -199,10 +147,10 @@ type.
 
  <!-- end HasExtensions -->
 
-
 <a name="coolcat.alloc.v1beta1.Msg"></a>
 
 ### Msg
+
 Msg defines the alloc Msg service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
@@ -210,8 +158,6 @@ Msg defines the alloc Msg service.
 | `CreateVestingAccount` | [MsgCreateVestingAccount](#coolcat.alloc.v1beta1.MsgCreateVestingAccount) | [MsgCreateVestingAccountResponse](#coolcat.alloc.v1beta1.MsgCreateVestingAccountResponse) | CreateVestingAccount defines a method that enables creating a vesting account. | |
 
  <!-- end services -->
-
-
 
 ## Scalar Value Types
 

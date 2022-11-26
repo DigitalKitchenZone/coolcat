@@ -16,7 +16,7 @@ import (
 )
 
 // returns context and an app with updated mint keeper
-func createTestApp(isCheckTx bool) (*ccatapp.WasmApp, sdk.Context) {
+func createTestApp(isCheckTx bool) (*ccatapp.CoolCatApp, sdk.Context) {
 	app := setup(isCheckTx)
 
 	ctx := app.BaseApp.NewContext(isCheckTx, tmproto.Header{})
@@ -26,7 +26,7 @@ func createTestApp(isCheckTx bool) (*ccatapp.WasmApp, sdk.Context) {
 	return app, ctx
 }
 
-func setup(isCheckTx bool) *ccatapp.WasmApp {
+func setup(isCheckTx bool) *ccatapp.CoolCatApp {
 	app, genesisState := genApp(!isCheckTx, 5)
 	if !isCheckTx {
 		// init chain must be called to stop deliverState from being nil
@@ -48,10 +48,10 @@ func setup(isCheckTx bool) *ccatapp.WasmApp {
 	return app
 }
 
-func genApp(withGenesis bool, invCheckPeriod uint) (*ccatapp.WasmApp, ccatapp.GenesisState) {
+func genApp(withGenesis bool, invCheckPeriod uint) (*ccatapp.CoolCatApp, ccatapp.GenesisState) {
 	db := dbm.NewMemDB()
 	encCdc := ccatapp.MakeEncodingConfig()
-	app := ccatapp.NewWasmApp(
+	app := ccatapp.NewCoolCatApp(
 		log.NewNopLogger(),
 		db,
 		nil,
