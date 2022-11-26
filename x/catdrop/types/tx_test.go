@@ -1,0 +1,31 @@
+package types
+
+import (
+	"testing"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/auth/legacy/legacytx"
+	"github.com/stretchr/testify/assert"
+)
+
+func TestMsgJsonSignBytes(t *testing.T) {
+	goodAddress := sdk.AccAddress(make([]byte, 20)).String()
+	specs := map[string]struct {
+		src legacytx.LegacyMsg
+		exp string
+	}{
+		"MsgClaimFor": {
+			src: &MsgClaimFor{Sender: goodAddress, Address: goodAddress, Action: ActionUseClowder},
+			exp: `{
+				"type":"catdrop/ClaimFor",
+				"value": {"sender": "cosmos1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqnrql8a", "address": "cosmos1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqnrql8a", "action": 3}
+			}`,
+		},
+	}
+	for name, spec := range specs {
+		t.Run(name, func(t *testing.T) {
+			bz := spec.src.GetSignBytes()
+			assert.JSONEq(t, spec.exp, string(bz), "raw: %s", string(bz))
+		})
+	}
+}

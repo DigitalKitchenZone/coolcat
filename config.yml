@@ -1,0 +1,15 @@
+# @format
+
+accounts:
+   - name: alice
+     coins: ["20000uccat"]
+   - name: bob
+     coins: ["20000uccat"]
+validator:
+   name: alice
+   staked: "200uccat"
+faucet:
+   name: bob
+   coins: ["10000000000uccat"]
+build:
+   main: "cmd/coolcat"
