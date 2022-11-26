@@ -1,8 +1,6 @@
-<!-- @format -->
+# CODEOWNERS: <https://help.github.com/articles/about-codeowners/>
 
-# CODEOWNERS: https://help.github.com/articles/about-codeowners/
+## Primary repo maintainers
 
-# Primary repo maintainers
-
--        @vexxvakan
--        @brigdan
+- @vexxvakan
+- @brigdan
