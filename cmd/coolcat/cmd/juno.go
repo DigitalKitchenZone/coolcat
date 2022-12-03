@@ -3,9 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
-	"strings"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -67,17 +65,12 @@ Example:
 
 			// export EXCHANGES="cosmosvaloper156gqf9837u7d4c4678yt3rl4ls9c5vuursrrzf,cosmosvaloper1a3yjj7d3qnx4spgvjcwjq9cw9snrrrhu5h6jll,cosmosvaloper1nm0rrq86ucezaf8uj35pq9fpwr5r82clzyvtd8,cosmosvaloper1kn3wugetjuy4zetlq6wadchfhvu3x740ae6z6x,cosmosvaloper1te8nxpc2myjfrhaty0dnzdhs5ahdh5agzuym9v,cosmosvaloper19yy989ka5usws6gsd8vl94y7l6ssgdwsrnscjc,cosmosvaloper12w6tynmjzq4l8zdla3v4x0jt8lt4rcz5gk7zg2,cosmosvaloper1qaa9zej9a0ge3ugpx3pxyx602lxh3ztqgfnp42,cosmosvaloper1z66j0z75a9flwnez7sa8jxx46cqu4rfhd9q82w"
 			// copy this line for cosmos hub exchanges
-			ccn := strings.Split(strings.TrimSpace(os.Getenv("CCNADDRESSES")), ",")
-			fmt.Println("CCN addresses removed")
-			if len(ccn) == 0 || strings.TrimSpace(os.Getenv("CCNADDRESSES")) == "" {
-				panic("provide list of CCN addresses")
-			}
 
-			prop16votes := strings.Split(strings.TrimSpace(os.Getenv("PROP16VOTES")), ",")
-			fmt.Println("prop16 voters bonussed(?)")
-			if len(ccn) == 0 || strings.TrimSpace(os.Getenv("PROP16VOTES")) == "" {
-				panic("provide list of prop 16 voter addresses")
-			}
+			// prop16votes := strings.Split(strings.TrimSpace(os.Getenv("PROP16VOTES")), ",")
+			// fmt.Println("prop16 voters bonussed(?)")
+			// if strings.TrimSpace(os.Getenv("PROP16VOTES")) == "" {
+			// 	panic("provide list of prop 16 voter addresses")
+			// }
 			stakingGenState := stakingtypes.GetGenesisStateFromAppState(cdc, appState)
 
 			// Make a map from validator operator address to the validator type
@@ -89,10 +82,6 @@ Example:
 			stakers := 0
 			bonusReceivers := 0
 			for _, delegation := range stakingGenState.Delegations {
-				if isIn(delegation.ValidatorAddress, ccn) {
-					continue
-				}
-
 				val, ok := validators[delegation.ValidatorAddress]
 				if !ok {
 					panic(fmt.Sprintf("missing validator %s ", delegation.GetValidatorAddr()))
@@ -119,12 +108,12 @@ Example:
 					staker = true
 					stakers++
 				}
-				propSixteen := false
-				if isIn(delegation.DelegatorAddress, prop16votes) {
-					propSixteen = true
-					bonusReceivers++
-				}
-				if propSixteen || staker {
+				// propSixteen := false
+				// if isIn(delegation.DelegatorAddress, prop16votes) {
+				// 	propSixteen = true
+				// 	bonusReceivers++
+				// }
+				if staker {
 					snapshotAccs[address] = acc
 				}
 			}
@@ -144,7 +133,7 @@ Example:
 				return fmt.Errorf("failed to marshal snapshot: %w", err)
 			}
 
-			err = ioutil.WriteFile(snapshotOutput, snapshotJSON, 0600)
+			err = os.WriteFile(snapshotOutput, snapshotJSON, 0600)
 			return err
 		},
 	}

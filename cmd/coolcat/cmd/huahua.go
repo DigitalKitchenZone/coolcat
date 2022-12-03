@@ -3,7 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -50,7 +49,7 @@ Example:
 			}
 			defer genesisJSON.Close()
 
-			// Produce the map of address to total atom balance, both staked and unstaked
+			// Produce the map of address to total huahua balance, both staked and unstaked
 			snapshotAccs := make(map[string]HuahuaSnapshotAccount)
 
 			cdc := clientCtx.Codec
@@ -91,7 +90,7 @@ Example:
 					}
 				}
 				staker := false
-				if newAmount.GTE(sdk.NewDecFromIntWithPrec(sdk.NewInt(69420), 0)) {
+				if newAmount.GTE(sdk.NewDecFromIntWithPrec(sdk.NewInt(694200), 0)) {
 					acc.HuahuaStaker = true
 					staker = true
 					stakers++
@@ -115,7 +114,7 @@ Example:
 				return fmt.Errorf("failed to marshal snapshot: %w", err)
 			}
 
-			err = ioutil.WriteFile(snapshotOutput, snapshotJSON, 0600)
+			err = os.WriteFile(snapshotOutput, snapshotJSON, 0600)
 			return err
 		},
 	}

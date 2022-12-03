@@ -3,7 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 
 	catdroptypes "github.com/DigitalKitchenLabs/coolcat/v1/x/catdrop/types"
 	"github.com/cosmos/cosmos-sdk/client"
@@ -37,7 +37,7 @@ func AddAirdropCmd() *cobra.Command {
 
 			// read snapshot
 			snapshotFile := args[0]
-			snapshotJSON, _ := ioutil.ReadFile(snapshotFile)
+			snapshotJSON, _ := os.ReadFile(snapshotFile)
 			snapshot := CoolCatSnapshot{}
 			json.Unmarshal([]byte(snapshotJSON), &snapshot)
 

@@ -50,8 +50,10 @@ contract_tests/*
 final_test.json
 final.json
 huahua_snapshot.json
-hub_snapshot.json
+cosmoshub_snapshot.json
 juno_snapshot.json
+cosmoshub_export.json
+huahua_export.json
+juno_export.json
 final_debug1.json
-final_debug.json
 export.json

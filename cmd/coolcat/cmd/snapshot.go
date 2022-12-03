@@ -3,7 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
@@ -52,9 +52,9 @@ Example:
 			huahuaSnapshotFile := args[2]
 			snapshotOutput := args[3]
 
-			hubJSON, _ := ioutil.ReadFile(hubSnapshotFile)
-			junoJSON, _ := ioutil.ReadFile(junoSnapshotFile)
-			huahuaJSON, _ := ioutil.ReadFile(huahuaSnapshotFile)
+			hubJSON, _ := os.ReadFile(hubSnapshotFile)
+			junoJSON, _ := os.ReadFile(junoSnapshotFile)
+			huahuaJSON, _ := os.ReadFile(huahuaSnapshotFile)
 
 			snapshotAccs := make(map[string]CoolCatSnapshotAccount)
 
@@ -184,7 +184,7 @@ Example:
 				return fmt.Errorf("failed to marshal snapshot: %w", err)
 			}
 
-			err = ioutil.WriteFile(snapshotOutput, snapshotJSON, 0600)
+			err = os.WriteFile(snapshotOutput, snapshotJSON, 0600)
 			return err
 		},
 	}

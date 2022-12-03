@@ -3,7 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 	"time"
 
 	"github.com/spf13/cobra"
@@ -100,7 +100,7 @@ func PrepareGenesisCmd(defaultNodeHome string, mbm module.BasicManager) *cobra.C
 			chainID := args[1]
 
 			// read snapshot.json and parse into struct
-			snapshotFile, _ := ioutil.ReadFile(args[2])
+			snapshotFile, _ := os.ReadFile(args[2])
 			snapshot := CoolCatSnapshot{}
 			err = json.Unmarshal(snapshotFile, &snapshot)
 			if err != nil {
