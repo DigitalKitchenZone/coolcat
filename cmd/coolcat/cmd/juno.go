@@ -103,7 +103,7 @@ Example:
 					}
 				}
 				staker := false
-				if newAmount.GTE(sdk.NewDecFromIntWithPrec(sdk.NewInt(555), 2)) {
+				if newAmount.GTE(sdk.NewDecFromIntWithPrec(sdk.NewInt(555), 1)) {
 					acc.JunoStaker = true
 					staker = true
 					stakers++

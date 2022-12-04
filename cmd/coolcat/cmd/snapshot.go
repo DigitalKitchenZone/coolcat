@@ -3,6 +3,7 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"os"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -22,7 +23,6 @@ type CoolCatSnapshotAccount struct {
 	AtomAddress              string  `json:"atom_address"`
 	JunoAddress              string  `json:"juno_address"`
 	HuahuaAddress            string  `json:"huahua_address"`
-	PropSixteen     			 bool    `json:"propsixteen_bonus"`
 	OutsideTopTwenty  		 bool    `json:"atom_bonus"`
 	AtomStaker               bool    `json:"atom_staker"`
 	JunoStaker               bool    `json:"juno_staker"`
@@ -67,11 +67,10 @@ Example:
 				}
 				// create account for the first time
 				snapshotAcc := CoolCatSnapshotAccount{
-					AtomAddress:	          staker.AtomAddress,
+					AtomAddress:	         staker.AtomAddress,
 					JunoAddress:             "",
 					HuahuaAddress:           "",
-					PropSixteen:    			 false,
-					OutsideTopTwenty:  		 staker.AtomStaker,
+					OutsideTopTwenty:  		 staker.OutsideTopTwenty,
 					AtomStaker:              staker.AtomStaker,
 					JunoStaker:              false,
 					HuahuaStaker:            false,
@@ -91,7 +90,6 @@ Example:
 					// account exists
 					acc.JunoAddress = acct.JunoAddress
 					acc.JunoStaker = acct.JunoStaker
-					acc.PropSixteen = acct.PropSixteen
 					snapshotAccs[coolcatAddr.String()] = acc
 				} else {
 					// account does not exist, create it
@@ -113,6 +111,7 @@ Example:
 				if acc, ok := snapshotAccs[coolcatAddr.String()]; ok {
 					// account exists
 					acc.HuahuaAddress = acct.HuahuaAddress
+					acc.HuahuaStaker = acct.HuahuaStaker
 					snapshotAccs[coolcatAddr.String()] = acc
 				} else {
 					// account does not exist, create it
@@ -126,13 +125,9 @@ Example:
 
 			// calculate number of rewards
 			numRewards := 0
-			numPropRewards := 0
 			numAtomBonusRewards := 0
 			for _, acct := range snapshotAccs {
 				if acct.JunoStaker {
-					if acct.PropSixteen {
-						numPropRewards++
-					}
 					numRewards++
 				}
 				if acct.HuahuaStaker {
@@ -148,13 +143,16 @@ Example:
 			}
 
 			airdropSupply := sdk.NewInt(3_500_000_000_000_000) // 3.500.000.000 CCAT in uccat (1CCAT = 1e-6 uucat)
-			baseReward := airdropSupply.QuoRaw(int64(numRewards)) // 49,472,761,710,909 ~= 49,472 UCCAT per reward
+			baseReward := airdropSupply.QuoRaw(int64(numRewards + numAtomBonusRewards)) // 49,472,761,710,909 ~= 49,472 UCCAT per reward
 
 			// calculate airdrop amount
 			for addr, acct := range snapshotAccs {
 				amt := sdk.ZeroInt()
 				if acct.AtomStaker {
 					amt = amt.Add(baseReward)
+					if acct.OutsideTopTwenty {
+						amt = amt.Add(baseReward)
+					}
 				}
 				if acct.HuahuaStaker {
 					amt = amt.Add(baseReward)
@@ -169,14 +167,18 @@ Example:
 			average := airdropSupply.QuoRaw(int64(len(snapshotAccs))) // 51,862,608,541,030
 
 			snapshot := CoolCatSnapshot{
-				TotalCatdropAmount: sdk.Int{},
+				TotalCatdropAmount: 	airdropSupply,
 				Accounts:                snapshotAccs,
 			}
 
-			fmt.Printf("accounts: %d\n", len(snapshotAccs))
-			fmt.Printf("num rewards: %d\n", numRewards)
-			fmt.Printf("base reward: %d\n", baseReward.Int64())
-			fmt.Printf("average reward: %d\n", average.Int64())
+			fmt.Println("=== CoolCat Catdrop Generator ===")
+			fmt.Printf("👥 Total Accounts: %d\n", len(snapshotAccs))
+			fmt.Println("---------")
+			fmt.Printf("🔐 Staking Rewards: %d\n", numRewards)
+			fmt.Printf("🔝 Outside-Top20 Staking Rewards: %d\n", numAtomBonusRewards)
+			fmt.Println("---------")
+			fmt.Printf("✨ Reward Amount: %.2f $CCAT\n", float64(math.Floor(sdk.NewDecWithPrec(baseReward.Int64(), 6).Mul(sdk.NewDec(int64(100))).MustFloat64()) / 100))
+			fmt.Printf("✅ Average Reward Amount: %.2f $CCAT\n", float64(math.Floor(sdk.NewDecWithPrec(average.Int64(), 6).Mul(sdk.NewDec(int64(100))).MustFloat64()) / 100))
 
 			// export snapshot json
 			snapshotJSON, err := json.MarshalIndent(snapshot, "", "    ")

@@ -149,7 +149,7 @@ Example:
 				}
 
 				staker := false
-				if newAmount.GTE(sdk.NewDecFromIntWithPrec(sdk.NewInt(777), 2)) {
+				if newAmount.GTE(sdk.NewDecFromIntWithPrec(sdk.NewInt(333), 1)) {
 					acc.AtomStaker = true
 					staker = true
 					stakers++

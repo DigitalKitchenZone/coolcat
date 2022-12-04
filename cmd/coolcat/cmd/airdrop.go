@@ -16,14 +16,14 @@ import (
 
 const Denom = "uccat"
 
-func AddAirdropCmd() *cobra.Command {
+func AddCatdropCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "add-airdrop [airdrop-snapshot-file]",
-		Short: "Add balances of accounts to claim module.",
+		Use:   "add-catdrop [catdrop-snapshot-file]",
+		Short: "Add balances of accounts to catdrop module.",
 		Args:  cobra.ExactArgs(1),
-		Long: `Add balances of accounts to claim module.
+		Long: `Add balances of accounts to catdrop module.
 				Example:
-				coolcatd add-airdrop /path/to/snapshot.json
+				coolcat add-catdrop /path/to/snapshot.json
 				`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -65,7 +65,7 @@ func AddAirdropCmd() *cobra.Command {
 				record := catdroptypes.ClaimRecord{
 					Address:                address,
 					InitialClaimableAmount: coins,
-					ActionCompleted:        []bool{false, false},
+					ActionCompleted:        []bool{false, false, false, false},
 				}
 				claimGenState.ClaimRecords = append(claimGenState.ClaimRecords, record)
 				totalClaimedAmount = totalClaimedAmount.Add(coin)
@@ -74,7 +74,7 @@ func AddAirdropCmd() *cobra.Command {
 			claimGenState.ModuleAccountBalance = totalClaimedAmount
 			claimGenStateBz, err := cdc.MarshalJSON(claimGenState)
 			if err != nil {
-				return fmt.Errorf("failed to marshal claim genesis state: %w", err)
+				return fmt.Errorf("failed to marshal catdrop genesis state: %w", err)
 			}
 			appState[catdroptypes.ModuleName] = claimGenStateBz
 

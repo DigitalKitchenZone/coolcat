@@ -104,7 +104,7 @@ func initRootCmd(rootCmd *cobra.Command, encodingConfig params.EncodingConfig) {
 		cmd.ExportHuahuaSnapshotCmd(),
 		cmd.ExportJunoSnapshotCmd(),
 		cmd.ExportHubSnapshotCmd(),
-		cmd.AddAirdropCmd(),
+		cmd.AddCatdropCmd(),
 		cmd.GenerateSnapshotCmd(),
 		AddGenesisIcaCmd(app.DefaultNodeHome),
 		AddGenesisAccountCmd(app.DefaultNodeHome),
